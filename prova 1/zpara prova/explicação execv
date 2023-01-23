@@ -1,0 +1,35 @@
+/*As primitivas exec() constituem na verdade uma família de funções (execl, execlp, execle, execv, execvp)
+que permitem o lançamento da execução de um programa externo ao processo. Não existe a criação efetiva de um novo processo,
+mas simplesmente uma substituição do programa de execução. */
+
+//execv(const char *pathname, char *const argv[]);
+//O parâmetro inicial destas funções é o caminho do arquivo a ser executado. 
+
+/*Na chamada de uma função exec(), existe um recobrimento do segmento de instruções do processo que chama a função.
+Desta forma, não existe retorno de um exec() cuja execução seja correta (o endereço de retorno desaparece).
+Em outras palavras, o processo que chama a função exec() morre. */
+
+/*O código do processo que chama uma função exec() será sempre destruído, e desta forma,
+não existe muito sentido em utilizá-la sem que ela esteja associada a uma primitiva fork(). */
+
+/*As funções exec () só retornam se tiver ocorrido um erro. O valor de retorno é -1 e errno é definido para indicar o erro.*/
+
+//EXPLICAÇÃO PIKA
+
+/*De acordo com a página man, o uso de execvé bastante simples.
+O primeiro argumento é o caminho como uma string para o programa que você deseja executar.
+O segundo é um array de strings que serão usados ​​como argumentos do programa que você deseja executar.
+É o tipo de array que você obtém se obtiver o argvarray em sua função principal.
+
+Assim, o array que você passará como parâmetro será o array recebido na função principal do
+programa que você executa execv.
+
+Por convenção, o primeiro argumento deve ser o nome do programa (aquele que você tenta executar),
+mas não é obrigatório (mas fortemente recomendado, pois é o comportamento que muitos programas esperam).
+Cada outra string na matriz deve ser um argumento individual.
+
+E, claro, a matriz deve ser encerrada com um ponteiro NULL para marcar o fim.
+
+Exemplo de matriz:["prog_name", "arg1", "arg2", "arg3", NULL]
+
+[] é o seu array, cada string separada por vírgula é um quadro do seu array e no final você tem o quadro nulo.*/

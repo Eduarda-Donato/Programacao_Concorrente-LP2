@@ -1,0 +1,32 @@
+monitor
+entregando uma classe/estrutura para alguem que já trate de forma implicita o aspecto de exclusao mutua (padrao de projeto)
+para evitar erros de aberuras e fechamentos de semaforos por exemplo
+tratamento centralizado para sicronismo condicional
+garante thread safe
+
+thread safe
+
+
+
+socket
+servidor aguadar a solicitação de novos clientes processa e retorna uma mensagem
+a porta vai estar associada a um processo
+
+
+
+difereça entre tcp e udp:
+tcp (orientado a conexão)
+tcp tem solicitação de conexão (accept - servidor/connect - cliente)
+é como se fosse um circuio que liga o servidor e cliente
+constatemente verifica se a conexão esta ativa atraves de mensagens
+quando um cliente finaliza a conexão o servidor tbm finaliza
+garante ordem de entrega e a entrega (um buffer ordena)
+
+udp (não é orientado a conexão)
+pode ser que a informação se perca no caminho
+n tem como saber se a informação chegou e se a conexão esta ativa
+não garante ordem de entrega e a nem entrega
+por n ter esses serviços tem menos informações (carrega apenas o conteudo a ser transmitido, e o cabeçalho de dados(ip,..)) logo n gera overhead
+
+overhead
+mensagem de validação

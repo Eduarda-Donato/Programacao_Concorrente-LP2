@@ -1,0 +1,73 @@
+///escalonador(organiza a ordem  de execução das threads e o tempo) faz entrelaçamento(processo em conjunto da execução de programas,) e permitiu a multiprogramação 4
+//cada nucleo realiza uma instrução
+//mais de 1 nucleo - realiza mais de uma instrução ao mesmo tempo, mas ainda realiza escalonamento, pq só o Sistema operacional já consome bastante
+//inconsistencia de cache
+//consistencia de memoria - (mutex resolve) - ele faz com que alguma thread n prossiga enquanto uma condições n seja realizada
+//fork()
+//exec() - substitui o contexto do processo em execução por um novo proceso que vai ser criado a partir de um programa externo
+//wait() - aguarda a execução de processos e capturar seu retorno
+// kill -finaliza 
+//contexto (informações sobre o estado de execução de um processo) (oq forma o contexto do processo, quais as partes), {conjunto de instruçoes(algoritmo), região de memoria q vai armazenar as variáveis, contexto das threads (pq todo processo tem pelo menos 1 thread), PID, descritores dos arquivos abertos }
+//contexto thread*****   {conjunto de instruçoes(algoritmo),pila de execução(se invoca com codigo recursivo precisa empilhala), contador de programa (por causa do escalonador (necessario saber onde continuar), estados de escalonamento thread, registradores)}
+//maquina de estados {em execução, bloqueado - (E/S), pronto}
+//estado do processo - fotografia do como está o processo
+//ação atomica - modifica o estado do processo levando ele para outro estado
+//historia - conjunto de estados que o processo assume durante seu ciclo de vida
+//safety - estitui que o processo nunca vai chegar no estado inconsistente (nenhuma variavel vai armazanar um valor aleatorio)
+//sem ela o sistema fica imprevisivel e inconsistente
+//evitar dead lock (uma thread esta segurando o recurso de outra que esta segurando de outra thread )
+//sem ela o programa progride mas em estados inconsistentes
+//liveness - garante que threads que estao tentando acessar algum recurso consigam 
+//garante a entrada na seção critica (inanição / starvation)
+//nem sempre o uso thread vai ser mais vantajoso que usar processo
+//main (thread principal)
+//pthread (cria outras threads) {pthread_create} - criou a thread ela já vai ser executada / não para o processamento roda ao msm tempo da main
+//pthread_join - uni a execução com thread corrente
+//pthread_exit() - terminar a execução e joga o valor para o join
+//mutex_lock / mutex_unlock
+//variaveis globais (comunicação) (compartilha a mesma região de memoria)
+//uma variavel num processo é independente da de outro processo
+
+//pthread_create()  obs:  retorna void* e retorna void*, quando quer passa mais de 1 parametro (cria uma struct que encapsula os campos)
+/*typedef struct{
+    int id;
+    float peso;
+    char tipo;
+} t_param;
+
+
+/////seção critica
+acessa/manipula recurso (variavel global) compartilhado entre threads e realiza operações que podem causar inconsistencia de memoria
+acesso de escrita/leitura concorrentes
+em assembly o incremento acontece em 2 linhas de codigo por isso causa inconsistencia
+
+resolução
+1)O que é programação concorrente? Quais são os aspectos a serem observados quando do planejamento de sistemas que utilizam processos concorrentes?
+é o paradigma da programação que planeja o uso e a cooperação de thread e processo, no planejamento deve ser observado a interligação logica para saber oq sera realizado na thread e no processos e como os processos se comunicam e assim garantem a consistencia de memoria (Memoria compartilhada, troca de mensagens, necessidade de sincronismo) specto bastante importante nesse paradigma)
+
+2)Qual o impacto do advento dos processadores multi-núcleo na implementação e execução de programas que utilizam programação concorrente?
+O advento dos processadores multinúcleos possibilitou utilização do paralelismo local, já que antes só era utilizado o entrelaçamento, e o paralelismo apenas utilizado em sistemas distribuídos. 
+Como os processadores multinúcleos podem executar mais de uma instrução por vez, a possibilidade do uso de threads e de processos foi maximizada, já que vai dispor do entrelaçamento + paralelismo e o pc sempre poderá realizar mais processo e thread do que a quantidade de nucleo de processamento
+
+paralelismo em um unico computador (local), realizar multi-instruções num computador multiunucleo
+como vai dispor do entrelaçamento + paralelismo (sempre vai ter mais processo e thread do que nucleo de processamento)
+
+//3)O que é, em programação concorrente, consistência de memória?
+é garantir que todos os entes do sistema tenha acesso a mesma informação que estao na mesma regiao de memoria (sistema distribuido n usa, pq a região/endereço de memoria vai ser diferente)
+todos os nucleos tenham acesso a informação atualizada. manipular informação na thread pode causar inconsistencia (incremento)
+
+(mutex resolve) - ele faz com que alguma thread n prossiga enquanto uma condições n seja realizada (só uma thread por vez vai poder manipular uma variavel) 
+
+//4)O que é um processo? Quais são as informações que compreendem o contexto de um processo? 
+É um programa em execução que tambem é uma entidade definida pelo SO, que agrega todas suas informações necessarias no seu contexto e a partir do contexto executá-lo.
+Contexto do process: pid, intruções,variaveis,contexto thread.
+
+
+
+/*
+    fork_return > 0 (execucao do processo pai)
+    fork_return == 0 (execucao do processo clonado)
+    fork_return == -1 (erro, nao houve clonagem)
+*/
+
+
